@@ -1,5 +1,6 @@
 package com.chaexsy.practise.leetcode.queue;
 
+
 class MyCircularQueue {
 
     private int[] data;

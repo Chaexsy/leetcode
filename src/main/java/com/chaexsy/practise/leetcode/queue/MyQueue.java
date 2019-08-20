@@ -1,7 +1,5 @@
 package com.chaexsy.practise.leetcode.queue;
 
-// "static void main" must be defined in a public class.
-
 import java.util.ArrayList;
 import java.util.List;
 
