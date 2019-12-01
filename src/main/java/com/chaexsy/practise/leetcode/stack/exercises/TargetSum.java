@@ -1,5 +1,8 @@
 package com.chaexsy.practise.leetcode.stack.exercises;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * 目标和
  *
@@ -30,14 +33,50 @@ package com.chaexsy.practise.leetcode.stack.exercises;
  * @author Chaexsy 2019-10-19 17:17
  */
 public class TargetSum {
+    private int result = 0;
+
+
+    /**
+     * 暴力解法：
+     * 执行用时 :673 ms, 在所有 Java 提交中击败了19.31%的用户
+     * 内存消耗 :35.2 MB, 在所有 Java 提交中击败了81.70%的用户
+     *
+     * @param nums 数组
+     * @param S 目标和
+     * @return
+     */
     public int findTargetSumWays(int[] nums, int S) {
-        int count = 0;
-
-        return count;
+        dfs(nums, S, 0, 0);
+        return result;
     }
 
-    public void dfs(char[][] grids, int row, int col, Set<String> visited) {
+    /**
+     * 深度优先搜索
+     *
+     * @param nums 数组
+     * @param S 目标和
+     * @param index 当前元素的数组下标
+     * @param cS 目前的和
+     */
+    private void dfs(int[] nums, int S, int index, int cS) {
+        if (cS == S && index == nums.length) {
+            result++;
+            return;
+        }
+        if (index >= nums.length) {
+            return;
+        }
 
+        //+
+        dfs(nums, S, index + 1, cS + nums[index]);
+        //-
+        dfs(nums, S, index + 1, cS - nums[index]);
     }
 
+    public static void main(String[] args){
+        int[] nums = new int[]{1, 1, 1, 1, 1};
+        int sum = 3;
+        System.out.println(new TargetSum().findTargetSumWays(nums, sum));
+
+    }
 }
