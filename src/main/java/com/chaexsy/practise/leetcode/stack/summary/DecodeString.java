@@ -1,7 +1,5 @@
 package com.chaexsy.practise.leetcode.stack.summary;
 
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -21,23 +19,61 @@ import java.util.Stack;
  * @author Chaexsy 2019-12-01 10:40
  */
 public class DecodeString {
-    private final String NUMS = "123456789";
 
     public String decodeString(String s) {
-        String result = "";
+        StringBuilder res = new StringBuilder();
 
-        Stack<String> stack = new Stack<>();
+        // 数字辅助栈
+        Stack<Integer> stack_multi = new Stack<>();
+        // 字母辅助栈
+        Stack<String> stack_res = new Stack<>();
 
-        boolean search
-        for(int i=0; i<s.length(); i++){
-            String x = s.substring(i, i+1);
-            if(NUMS.contains(x)){
-                for(int j=0; j<Integer.parseInt(x); j++){
-                    result += r
+        // 是否连续遍历到了数字，连续遍历到数字时，需要把连续遍历到的数字看成一个数
+        boolean isConsecutiveNumber = false;
+
+        for(Character c : s.toCharArray()) {
+            if(c == '[') {
+                // 碰到左括号，把之前攒起来的字母压入栈
+                // 然后把攒起来的字母清空，重新开始攒
+                stack_res.push(res.toString());
+                res = new StringBuilder();
+
+                isConsecutiveNumber = false;
+            }else if(c == ']') {
+                // 碰到右括号
+                StringBuilder tmp = new StringBuilder();
+                // 先把数字出栈
+                int cur_multi = stack_multi.pop();
+                // 再把攒起来的字母拿出来计算
+                for(int i = 0; i < cur_multi; i++){
+                    tmp.append(res);
                 }
+                // 把 之前压入栈的字母和计算出来的字母拼起来
+                res = new StringBuilder(stack_res.pop() + tmp);
+
+                isConsecutiveNumber = false;
+            }else if(c >= '0' && c <= '9'){
+                int multi = Integer.parseInt(c + "");
+                if(isConsecutiveNumber){
+                    // 连续遍历到数字时，把之前遍历到的数字视为比当前的数字高10位
+                    multi = stack_multi.pop() * 10 + multi;
+                }
+                stack_multi.push(multi);
+
+                isConsecutiveNumber = true;
+            }else{
+                // 即不是数字也不是括号，就把字母攒起来
+                res.append(c);
+                isConsecutiveNumber = false;
             }
         }
+        return res.toString();
+    }
 
-        result +=
+
+    public static void main(String[] args){
+//        System.out.println("result: " + new DecodeString().decodeString("3[a]2[bc]"));
+        System.out.println("result: " + new DecodeString().decodeString("3[a2[c]]"));
+//        System.out.println("result: " + new DecodeString().decodeString("100[leetcode]"));
     }
 }
