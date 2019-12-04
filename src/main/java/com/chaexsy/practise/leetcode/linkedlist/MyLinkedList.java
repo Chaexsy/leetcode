@@ -59,40 +59,59 @@ class MyLinkedList {
 
     /** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
     public void addAtIndex(int index, int val) {
-        Node cur = head;
-        int i = 0;
-        while (i<index-1){
-            cur = cur.next;
-            i++;
+        if(index > 0){
+            Node cur = head;
+            int i = 0;
+            while (i<index-1){
+                cur = cur.next;
+                i++;
+            }
+
+            if(cur!=null){
+                Node node = new Node(val);
+                node.next = cur.next;
+                cur.next = node;
+            }
+        }else if(index == 0){
+            Node node = new Node(val);
+
+            if(head == null){
+                head = node;
+            }else{
+                node.next = head.next;
+                head = node;
+            }
         }
 
-        if(cur!=null){
-            Node node = new Node(val);
-            node.next = cur.next;
-            cur.next = node;
-        }
     }
 
     /** Delete the index-th node in the linked list, if the index is valid. */
     public void deleteAtIndex(int index) {
-        Node prev = head;
-        Node next;
+        if(index>0){
+            Node prev = head;
 
-        int i = 0;
-        while (i<index-1){
-            if(prev == null){
-                continue;
+            int i = 0;
+            while (i<index-1){
+                if(prev == null){
+                    continue;
+                }
+
+                prev = prev.next;
+                i++;
             }
 
-            prev = prev.next;
-            i++;
-        }
-
-        if(prev != null){
-            Node cur = prev.next;
-            if(cur != null){
-                prev.next = cur.next;
+            if(prev != null){
+                Node cur = prev.next;
+                if(cur != null){
+                    prev.next = cur.next;
+                }
             }
+        }else if(index == 0){
+            Node temp = this.head;
+            this.head = head.next;
+            temp.next = null;
+        }else{
+
         }
     }
 
@@ -102,7 +121,7 @@ class MyLinkedList {
         linkedList.addAtTail(3);
         linkedList.addAtIndex(1,2);   //链表变为1-> 2-> 3
         linkedList.get(1);            //返回2
-        linkedList.deleteAtIndex(1);  //现在链表是1-> 3
-        linkedList.get(1);            //返回3
+        linkedList.deleteAtIndex(0);  //现在链表是1-> 3
+        System.out.println(linkedList.get(1));            //返回3
     }
 }
