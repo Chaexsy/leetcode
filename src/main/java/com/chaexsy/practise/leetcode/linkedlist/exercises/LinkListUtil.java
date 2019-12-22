@@ -1,7 +1,7 @@
 package com.chaexsy.practise.leetcode.linkedlist.exercises;
 
-import io.netty.util.internal.StringUtil;
-import org.apache.commons.lang.StringUtils;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 链表的一些工具方法

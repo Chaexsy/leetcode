@@ -23,26 +23,21 @@ package com.chaexsy.practise.leetcode.linkedlist.exercises;
 public class TwosLinklist {
     public ListNode oddEvenList(ListNode head) {
         // 奇数指针
-        ListNode oddNode = head;
-
-        ListNode tail = head;
-        while (tail.next != null){
-            tail = tail.next;
+        if (head == null) {
+            return null;
         }
 
-        while (oddNode != null){
-            if(oddNode.next != null){
-                ListNode evenNode = oddNode.next;
-                evenNode.next = (evenNode.next != null) ? evenNode.next.next : null;
-                tail.next = evenNode;
-                tail = evenNode;
+        ListNode oddTail = head, evenHead = head.next, evenTail = evenHead;
 
-                // 再把奇数节点的next设置为下一个奇数节点
-                oddNode.next = oddNode.next.next;
-            }
+        while (evenTail != null && evenTail.next != null){
+            oddTail.next = evenTail.next;
+            oddTail = oddTail.next;
 
-            oddNode = oddNode.next;
+            evenTail.next = oddTail.next;
+            evenTail = evenTail.next;
         }
+
+        oddTail.next = evenHead;
 
         return head;
     }
