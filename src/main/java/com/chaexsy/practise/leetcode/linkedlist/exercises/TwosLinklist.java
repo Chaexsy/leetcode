@@ -22,7 +22,6 @@ package com.chaexsy.practise.leetcode.linkedlist.exercises;
  */
 public class TwosLinklist {
     public ListNode oddEvenList(ListNode head) {
-        // 奇数指针
         if (head == null) {
             return null;
         }
