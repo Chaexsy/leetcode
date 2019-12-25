@@ -1,5 +1,7 @@
 package com.chaexsy.practise.leetcode.linkedlist;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * 双链表
  *
@@ -96,32 +98,51 @@ public class MyDoubleLinkedList {
             }
         }else{
             Node prev = head;
-            for(int i=0; i<index-2; i++){
+            for(int i=0; i<index-1; i++){
                 prev = prev.next;
             }
 
             prev.next = prev.next.next;
-            if(prev.next.next != null){
-                // 删除链表末尾节点时，prev.next.next是空的
-                prev.next.next.prev = prev;
+            if(prev.next != null){
+                // 删除链表末尾节点时，prev.next是空的
+                prev.next.prev = prev;
             }
         }
 
         size--;
     }
 
+    public Node getHead() {
+        return head;
+    }
+
     public static void main(String[] args){
         MyDoubleLinkedList linkedList = new MyDoubleLinkedList();
+        linkedList.addAtHead(1);
         linkedList.addAtHead(2);
-        linkedList.deleteAtIndex(1);
-        linkedList.addAtHead(2);
-        linkedList.addAtHead(7);
         linkedList.addAtHead(3);
-        linkedList.addAtHead(2);
-        linkedList.addAtHead(5);
-        linkedList.addAtTail(5);
-        System.out.println(linkedList.get(5));
-        linkedList.deleteAtIndex(6);
-        linkedList.deleteAtIndex(4);
+        linkedList.addAtTail(1);
+        linkedList.addAtTail(2);
+        linkedList.addAtTail(3);
+        printLinkList("", linkedList);
+        linkedList.deleteAtIndex(2);
+        printLinkList("", linkedList);
+    }
+
+    public static void printLinkList(String prefix, MyDoubleLinkedList link){
+        Node cur = link.getHead();
+
+        if(StringUtils.isNotBlank(prefix)){
+            System.out.print(prefix);
+        }
+        while (cur != null){
+            if(cur.next != null){
+                System.out.print(cur.val+"-");
+            }else{
+                System.out.print(cur.val);
+            }
+            cur = cur.next;
+        }
+        System.out.println();
     }
 }
