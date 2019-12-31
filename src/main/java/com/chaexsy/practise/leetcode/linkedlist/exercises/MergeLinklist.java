@@ -44,27 +44,33 @@ public class MergeLinklist {
      * 解法1 交替连接，不能保证合并后的链表也是有序的
      */
     public ListNode mergeTwoLists2(ListNode l1, ListNode l2) {
-        ListNode front;
-        ListNode back;
+        ListNode front, back;
+        if(l1 == null){
+            return l2;
+        }
+        if(l2 == null){
+            return l1;
+        }
         if(l1.val <= l2.val){
             front = l1;
             back = l2;
         }else {
-            front = l1;
-            back = l2;
+            front = l2;
+            back = l1;
         }
         ListNode temp;
         ListNode head = front;
-        front = front.next;
+
         while (front != null){
-            if(front.val >= back.val){
-                temp = front.next;
-                front.next = back;
-                back = temp;
-            }
             if(front.next == null && back != null){
                 front.next = back;
                 break;
+            }
+            if(front.val <= back.val
+                    && front.next.val > back.val){
+                temp = front.next;
+                front.next = back;
+                back = temp;
             }
             front = front.next;
         }
@@ -74,12 +80,14 @@ public class MergeLinklist {
 
     public static void main(String[] args){
         ListNode l1 = new ListNode(1);
-        l1.next = new  ListNode(5);
+        l1.next = new  ListNode(2);
         l1.next.next = new  ListNode(7);
 
-        ListNode l2 = new ListNode(2);
-        l2.next = new  ListNode(3);
-        l2.next.next = new  ListNode(4);
-        LinkListUtil.printLinkList("LinkList: ", new MergeLinklist().mergeTwoLists2(l1, l2));
+        ListNode l2 = new ListNode(3);
+        l2.next = new  ListNode(4);
+        l2.next.next = new  ListNode(5);
+        l2.next.next.next = new  ListNode(8);
+        ListNode result = new MergeLinklist().mergeTwoLists2(l1, l2);
+        LinkListUtil.printLinkList("LinkList: ", result);
     }
 }
