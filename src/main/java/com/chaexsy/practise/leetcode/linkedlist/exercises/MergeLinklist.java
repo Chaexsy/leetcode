@@ -78,6 +78,28 @@ public class MergeLinklist {
         return head;
     }
 
+    public ListNode mergeTwoLists3(ListNode l1, ListNode l2) {
+        ListNode cur = new ListNode(0);
+        ListNode head = cur;
+        while(l1 != null && l2 != null) {
+            if (l1.val <= l2.val){
+                cur.next = l1;
+                l1 = l1.next;
+            } else {
+                cur.next = l2;
+                l2 = l2.next;
+            }
+            cur = cur.next;
+        }
+        if (l1 == null) {
+            cur.next = l2;
+        }
+        if (l2 == null) {
+            cur.next = l1;
+        }
+        return head.next;
+    }
+
     public static void main(String[] args){
         ListNode l1 = new ListNode(1);
         l1.next = new  ListNode(2);
