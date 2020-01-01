@@ -107,9 +107,8 @@ public class MergeLinklist {
 
         ListNode l2 = new ListNode(3);
         l2.next = new  ListNode(4);
-        l2.next.next = new  ListNode(5);
-        l2.next.next.next = new  ListNode(8);
-        ListNode result = new MergeLinklist().mergeTwoLists2(l1, l2);
+        l2.next.next = new  ListNode(8);
+        ListNode result = new MergeLinklist().mergeTwoLists3(l1, l2);
         LinkListUtil.printLinkList("LinkList: ", result);
     }
 }
