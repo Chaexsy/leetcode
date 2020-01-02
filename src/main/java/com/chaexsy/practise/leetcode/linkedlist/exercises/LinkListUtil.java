@@ -25,4 +25,31 @@ public class LinkListUtil {
         }
         System.out.println();
     }
+
+    public static void printLinkList(String prefix, Node head){
+        Node cur = head;
+
+        if(StringUtils.isNotBlank(prefix)){
+            System.out.print(prefix);
+        }
+        while (cur != null){
+            if(cur.next != null){
+                String curStr = ""+cur.val;
+                if(cur.next.prev == cur){
+                    System.out.print(curStr+"=");
+                }else{
+                    System.out.print(curStr+"-");
+                }
+                if(cur.child != null){
+                    System.out.print("(");
+                    printLinkList("", cur.child);
+                    System.out.print(")-");
+                }
+            }else{
+                System.out.print(cur.val);
+            }
+            cur = cur.next;
+        }
+//        System.out.println();
+    }
 }
