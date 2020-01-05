@@ -15,44 +15,48 @@ package com.chaexsy.practise.leetcode.hashtable;
  */
 public class MyHashSet {
     private int[][] table;
-    private int size;
-    private final int DEFAULT_SIZE = 100;
+    private final int BUCKET_SIZE = 100;
+    private final int ARRAY_SIZE = 10000;
 
 
 
     public MyHashSet() {
-        size = DEFAULT_SIZE;
-        table = new int[100][size];
+        table = new int[BUCKET_SIZE][ARRAY_SIZE+1];
     }
 
     public void add(int key) {
-        table[hash(key)] = key;
+//        System.out.println("key: " + key + ", [" + getBucketHash(key) + "][" + getArrayHash(key)+"]");
+        table[getBucketHash(key)][getArrayHash(key)] = 1;
     }
 
     public void remove(int key) {
-        table[hash(key)] = null;
+        table[getBucketHash(key)][getArrayHash(key)] = 0;
     }
 
     public boolean contains(int key) {
-        return table[hash(key)] != null;
+        return table[getBucketHash(key)][getArrayHash(key)] > 0;
     }
 
-    private int hash(int key){
-        return key % size;
+    private int getBucketHash(int key){
+        return key % BUCKET_SIZE;
+    }
+
+    private int getArrayHash(int key){
+        return key / BUCKET_SIZE;
     }
 
     public static void main(String[] args){
-//        MyHashSet hashSet = new MyHashSet();
-//        hashSet.add(1);
-//        hashSet.add(2);
-//        System.out.println(hashSet.contains(1));
-//        System.out.println(hashSet.contains(3));
-//        hashSet.add(2);
-//        System.out.println(hashSet.contains(2));
-//        hashSet.remove(2);
-//        System.out.println(hashSet.contains(2));
-
         MyHashSet hashSet = new MyHashSet();
+        hashSet.add(1);
+        hashSet.add(2);
+        System.out.println(hashSet.contains(1));
+        System.out.println(hashSet.contains(3));
+        hashSet.add(2);
+        System.out.println(hashSet.contains(2));
+        hashSet.remove(2);
+        System.out.println(hashSet.contains(2));
+
+//        MyHashSet hashSet = new MyHashSet();
 //        hashSet.add(0);
 //        System.out.println(hashSet.contains(0));
 //        hashSet.add(1000000);
@@ -60,7 +64,13 @@ public class MyHashSet {
 //        hashSet.remove(0);
 //        System.out.println(hashSet.contains(0));
 
-        hashSet.add(10000);
-        System.out.println(hashSet.contains(10000));
+//        hashSet.add(0);
+//        hashSet.add(1);
+//        hashSet.add(2);
+//        hashSet.add(100);
+//        hashSet.add(200);
+//        hashSet.add(10000);
+//        hashSet.add(1000000);
+//        System.out.println(hashSet.contains(10000));
     }
 }
