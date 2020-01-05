@@ -30,7 +30,9 @@ public class CopyRandomLinkList {
     }
 
     /**
-     * Visited dictionary to hold old node reference as "key" and new node reference as the "value"
+     * 已访问节点Map
+     * Key：老节点的引用
+     * value：新new出来的节点引用
      */
     private HashMap<Node, Node> visited = new HashMap<Node, Node>();
 
@@ -58,6 +60,9 @@ public class CopyRandomLinkList {
         return this.visited.get(head);
     }
 
+    /**
+     * 获取某个节点的拷贝节点
+     */
     public Node getClonedNode(Node node) {
         // If the node exists then
         if (node != null) {
@@ -72,5 +77,9 @@ public class CopyRandomLinkList {
             }
         }
         return null;
+    }
+
+    public static void main(String[] args){
+        System.out.println(new Object().hashCode());
     }
 }
