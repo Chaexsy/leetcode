@@ -56,10 +56,13 @@ public class MyHashMap {
 
         boolean duplicateFlag = false;
         Node cur = head;
-        while (cur.next != null){
+        while (cur != null){
             if(cur.key == key){
                 cur.value = value;
                 duplicateFlag = true;
+                break;
+            }else if(cur.next == null){
+                // 已经到尾巴了，还没找到相等的，跳出循环
                 break;
             }
             cur = cur.next;
@@ -118,16 +121,21 @@ public class MyHashMap {
 
     public static void main(String[] args) {
         MyHashMap hashMap = new MyHashMap();
-        hashMap.put(0, 0);
-        hashMap.put(1024,1024);
-        hashMap.put(2048, 2048);
-        System.out.println(hashMap.get(1024));
-        hashMap.put(1024, 1111);
-//        hashMap.remove(0);
-//        hashMap.remove(1024);
-//        hashMap.put(1024, 1024);
-        hashMap.put(0, 0);
-        System.out.println(hashMap.get(0));
-        System.out.println(hashMap.get(1024));
+//        hashMap.put(1, 1);
+//        hashMap.put(1025, 1025);
+//        hashMap.put(2049, 2049);
+//        hashMap.put(3073, 3073);
+//        hashMap.put(4097, 4097);
+//        hashMap.put(5121, 5121);
+//        hashMap.remove(2049);
+//        hashMap.remove(4097);
+//        hashMap.put(1025, 10251);
+//        hashMap.put(1025, 10252);
+        hashMap.put(68717, 1);
+        hashMap.put(69741,33133);
+        hashMap.put(69741,625);
+        System.out.println(hashMap.get(69741));
+//        System.out.println(hashMap.get(1025));
+//        System.out.println(hashMap.get(2049));
     }
 }
