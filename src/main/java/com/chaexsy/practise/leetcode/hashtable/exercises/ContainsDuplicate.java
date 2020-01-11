@@ -24,6 +24,15 @@ import java.util.Set;
  * @author Chaexsy 2020-01-09 23:54
  */
 public class ContainsDuplicate {
+    /**
+     * 解法1：
+     * 利用set集合元素不重复特性
+     * 把数组元素加入set集合
+     * set的size小于数组长度说明有重复
+     *
+     * 时间复杂度：O(n)
+     * 空间复杂度：O(n)
+     */
     public boolean solution(int[] nums) {
         Set<Integer> set = new HashSet<>();
         for(int i:nums){
