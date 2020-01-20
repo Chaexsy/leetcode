@@ -45,8 +45,8 @@ public class RandomizedSet {
 
     /** Initialize your data structure here. */
     public RandomizedSet() {
-        dict = new HashMap();
-        list = new ArrayList();
+        dict = new HashMap<>();
+        list = new ArrayList<>();
     }
 
     /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
