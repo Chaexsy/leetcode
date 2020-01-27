@@ -30,7 +30,12 @@ public class PrintUtil {
 
     public static <T> void  printList(List<T> list){
         for(int i=0; i<list.size(); i++){
-            System.out.print(list.get(i).toString());
+            if(list.get(i) != null){
+                System.out.print(list.get(i).toString());
+            }else{
+                System.out.print("null");
+            }
+
             if(i == list.size()-1){
                 System.out.println();
             }else{
