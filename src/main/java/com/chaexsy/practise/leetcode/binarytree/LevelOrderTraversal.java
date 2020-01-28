@@ -72,6 +72,7 @@ public class LevelOrderTraversal {
 
     /**
      * 解法2
+     * 解法1的变种，效率更高一些
      */
     public List<List<Integer>> solution2(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
