@@ -6,15 +6,11 @@ package com.chaexsy.practise.leetcode.binarytree;
  * @author Chaexsy 2020-01-27 15:26
  */
 public class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
 
     public TreeNode(int x) {
         val = x;
-    }
-
-    public TreeNode getLeft() {
-        return left;
     }
 }
