@@ -121,13 +121,13 @@ public class BuildTree1 {
      * @param startIndex 子树在中序遍历数组中的起始位置
      * @param endIndex 子树在中序遍历数组中的结束位置
      * @param inorder 中序遍历数组
-     * @param postorder 后续遍历数组
+     * @param postorder 后序遍历数组
      * @return 子树的根节点在中序遍历数组中的索引
      */
     private int getRootIndex(int startIndex, int endIndex, int[] inorder, int[] postorder){
         int rootIndexInPostOrder = -1;
         for(int i=startIndex; i<=endIndex; i++){
-            // 后续遍历，根节点总是在最后的，所以根节点索引最大的
+            // 后序遍历，根节点总是在最后的，所以根节点选索引最大的一个
             rootIndexInPostOrder = Math.max(rootIndexInPostOrder, postorderMap.get(inorder[i]));
         }
 
