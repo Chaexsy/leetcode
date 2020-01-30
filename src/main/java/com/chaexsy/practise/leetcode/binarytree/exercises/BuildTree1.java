@@ -32,12 +32,23 @@ public class BuildTree1 {
      * key：元素
      * value：索引
      */
-    private HashMap<Integer,Integer> memo = new HashMap<>();
+    private HashMap<Integer,Integer> inorderMap = new HashMap<>();
+    /**
+     * 后续遍历序列中,元素和索引的位置关系
+     * key：元素
+     * value：索引
+     */
+    private HashMap<Integer,Integer> postorderMap = new HashMap<>();
+
     private int[] post;
 
+    /**
+     * 解法1
+     * 不断递归确定左右子树的边界
+     */
     public TreeNode solution(int[] inorder, int[] postorder) {
         for(int i = 0;i < inorder.length; i++) {
-            memo.put(inorder[i], i);
+            inorderMap.put(inorder[i], i);
         }
         post = postorder;
         TreeNode root = buildTree(0, inorder.length - 1, 0, post.length - 1);
@@ -48,7 +59,7 @@ public class BuildTree1 {
         if(ie < is || pe < ps) return null;
 
         int root = post[pe];
-        int ri = memo.get(root);
+        int ri = inorderMap.get(root);
 
         TreeNode node = new TreeNode(root);
         node.left = buildTree(is, ri - 1, ps, ps + ri - is - 1);
@@ -61,8 +72,6 @@ public class BuildTree1 {
      * 根据后序遍历根节点总在最后的特点
      * 不断递归 找出根节点 -> 分割左右子树 的循环
      * 直到无法再分割左右子树即为叶子节点
-     *
-     * 效率不佳需要优化
      */
     public TreeNode solution2(int[] inorder, int[] postorder) {
         if(inorder.length == 0 || postorder.length == 0){
@@ -70,7 +79,8 @@ public class BuildTree1 {
         }
 
         for(int i = 0;i < inorder.length; i++) {
-            memo.put(inorder[i], i);
+            inorderMap.put(inorder[i], i);
+            postorderMap.put(postorder[i], i);
         }
 
         return buildTree2(0, inorder.length-1, inorder, postorder);
@@ -117,16 +127,11 @@ public class BuildTree1 {
     private int getRootIndex(int startIndex, int endIndex, int[] inorder, int[] postorder){
         int rootIndexInPostOrder = -1;
         for(int i=startIndex; i<=endIndex; i++){
-            for(int j=0; j<postorder.length; j++){
-                if(inorder[i] == postorder[j]){
-                    // 后续遍历，根节点总是在最后的，所以根节点
-                    rootIndexInPostOrder = Math.max(rootIndexInPostOrder, j);
-                    break;
-                }
-            }
+            // 后续遍历，根节点总是在最后的，所以根节点索引最大的
+            rootIndexInPostOrder = Math.max(rootIndexInPostOrder, postorderMap.get(inorder[i]));
         }
 
-        return memo.get(postorder[rootIndexInPostOrder]);
+        return inorderMap.get(postorder[rootIndexInPostOrder]);
     }
 
     public static void main(String[] args) {
