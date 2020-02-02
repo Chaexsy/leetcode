@@ -9,6 +9,8 @@ import java.util.List;
  */
 public class PrintUtil {
     private static TreePrinter<TreeNode> treePrinter = new TreePrinter<>(n -> ""+n.getVal(), n -> n.getLeft(), n -> n.getRight());
+    private static TreePrinter<TreeNode> treePrinter2 = new TreePrinter<>(n -> ""+n.getVal()+"("+n.count+")", n -> n.getLeft(), n -> n.getRight());
+
 
     public static void printArray(int[] arr){
         for(int i=0; i<arr.length; i++){
@@ -50,5 +52,9 @@ public class PrintUtil {
 
     public static void printTree(TreeNode root){
         treePrinter.printTree(root);
+    }
+
+    public static void printTreeWithNum(TreeNode root){
+        treePrinter2.printTree(root);
     }
 }
