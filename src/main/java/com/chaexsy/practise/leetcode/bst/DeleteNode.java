@@ -1,6 +1,8 @@
 package com.chaexsy.practise.leetcode.bst;
 
 import com.chaexsy.practise.leetcode.binarytree.TreeNode;
+import com.chaexsy.practise.leetcode.utils.PrintUtil;
+import com.chaexsy.practise.leetcode.utils.TreePrinter;
 
 /**
  * Delete Node in a BST
@@ -45,48 +47,70 @@ import com.chaexsy.practise.leetcode.binarytree.TreeNode;
  * @author Chaexsy 2020-01-31 17:05
  */
 public class DeleteNode {
-    public TreeNode solution(TreeNode root, int val) {
+    public TreeNode solution(TreeNode root, int key) {
         if(root == null){
             return null;
         }
-        delete(root, val);
-        return root;
+        return delete(root, key);
     }
 
-    private void delete(TreeNode node, int val){
+    private TreeNode delete(TreeNode node, int val){
+        if (node == null) return null;
+
         if(node.val == val){
             if(node.left == null && node.right == null){
-                // 目标节点没有子节点，直接删除
+                // 目标节点是叶子节点，没有子节点，直接删除
                 node = null;
-            }else if (node.left != null){
-                // 目标节点有左子树，拿左子树替换目标节点
-                node = node.left;
-            }else if(node.right != null){
-                // 目标节点有右子树，拿右子树替换目标节点
-                node = node.right;
+            }else if (node.right != null){
+                // 目标节点存在右子树
+                // 则拿中序遍历的后继节点的值替换目标节点，再删除后继节点
+                node.val = successor(node);
+                node.right = delete(node.right, node.val);
             }else{
-                // 目标节点即有左子树又有右子树，拿中序遍历的后继节点和目标节点互换位置，再删除目标节点
-                TreeNode next;
-                if (node.right.left == null && node.right.right == null){
-                    next = node.right;
-                    int temp = next.val;
-                    next.val = node.val;
-                    node.val = temp;
-                    next = null;
-                }else if(node.right.left != null){
-                    next = node.right.left;
-                    int temp = next.val;
-                    next.val = node.val;
-                    node.val = temp;
-                    next = null;
-                }else if(node.right.right != null){
-                    node = node.right;
-                }
+                // 目标节点不存在右子树，但是存在左子树
+                // 则拿中序遍历的前驱节点的值替换目标节点,再删除后继节点
+                node.val = predecessor(node);
+                node.left = delete(node.left, node.val);
             }
         }else if(node.val > val){
-            delete(node.left, val);
+            node.left = delete(node.left, val);
         }else{
-            delete(node.right, val);
+            node.right = delete(node.right, val);
         }
+
+        return node;
+    }
+
+    /**
+     * 获取中序遍历的后继节点的值
+     */
+    public int successor(TreeNode root) {
+        root = root.right;
+        while (root.left != null) root = root.left;
+        return root.val;
+    }
+
+    /**
+     * 获取中序遍历的前驱节点的值
+     */
+    public int predecessor(TreeNode root) {
+        root = root.left;
+        while (root.right != null) root = root.right;
+        return root.val;
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(5);
+        root.left = new TreeNode(3);
+        root.right = new TreeNode(6);
+
+        root.left.left = new TreeNode(2);
+        root.left.right = new TreeNode(4);
+        root.right.right = new TreeNode(7);
+
+        PrintUtil.printTree(root);
+        TreeNode afterDeleteTree = new DeleteNode().solution(root, 2);
+        System.out.println("After delete: ");
+        PrintUtil.printTree(afterDeleteTree);
     }
 }
