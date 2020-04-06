@@ -1,7 +1,5 @@
 package com.chaexsy.practise.leetcode.arrayAndString.exercises;
 
-import java.util.Queue;
-
 /**
  *  二进制求和
  *
@@ -19,11 +17,18 @@ import java.util.Queue;
  * @author Chaexsy 2019-12-09 8:25
  */
 public class BinarySum {
+    /**
+     * 解法1
+     *
+     * 先把两个数的位数补齐
+     * 再逐个每一位相加，相加结果>=2时记录进位
+     */
     public String addBinary(String a, String b) {
         String result = "";
 
         int maxLength = Math.max(a.length(), b.length());
 
+        // 位数少的一方先在高位补0
         if(a.length() < maxLength){
             int num = maxLength - a.length();
             String prefix = "";
